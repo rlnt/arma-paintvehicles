@@ -39,7 +39,7 @@
 + Script is designed to be used along with **Single currency**
 + **UPDATED:** Color values are saved in the worldspace field in database
 + **NEW:** Vehicles can be unpainted to default state (default textures are loaded)
-+ **UPDATED:** Vehicles can be painted using GUI with visual enhancements
++ **UPDATED:** Vehicles can be painted using GUI with visual enhancements. Use PaintVehicles `defines.hpp` for defining custom GUI color scheme
 
 ---
 
