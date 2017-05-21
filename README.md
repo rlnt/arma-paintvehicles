@@ -33,7 +33,7 @@
 <a name="features"></a>
 ## Features
 
-+ Vehicles can be painted in two different colours
++ Vehicles can be painted in two different colors
 + Only vehicles which you own can be painted (vehicles with key)
 + Only vehicles in `ColourVehicles` array can be painted
 + Script is designed to be used along with **Single currency**
