@@ -11,8 +11,8 @@
 **All credits goes to its original authors:**
 
 + **DayZ Epoch developers, collaborators and contributors** (thank you guys for your excellent work!). [Visit them on github][epochdevs]
-+ **Maca134** for orginal colour vehicle script.
-+ **Zupa** for the idea of painting vehicles in two different colours.
++ **Maca134** for orginal color vehicle script.
++ **Zupa** for the idea of painting vehicles in two different colors.
 + **0verHeaT** for script public release - this version we are updating for 1.0.6.1+ ([see original thread][overheatthread])
 + **raymix** for list of paintable vehicles for this script ([see original thread][raymixthread])
 
@@ -36,7 +36,7 @@
 + Vehicles can be painted in two different colors
 + Only vehicles which you own can be painted (vehicles with key)
 + Only vehicles in `ColourVehicles` array can be painted
-+ Script is designed to be used along with **Single currency**
++ Script is designed to be used along with **Single currency**. Player will pay for painting vehicles.
 + **UPDATED:** Color values are saved in the worldspace field in database
 + **NEW:** Vehicles can be unpainted to default state (default textures are loaded)
 + **UPDATED:** Vehicles can be painted using GUI with visual enhancements. Use PaintVehicles `defines.hpp` for defining custom GUI color scheme
@@ -45,7 +45,7 @@
 
 + **What needs to be done:**
   + #todo: update vehicle classes in `ColourVehicles` array
-  + #todo: compability test with `Virtual Garage` script (theduke variant)
+  + #todo: compability test with `Virtual Garage` script (theduke release)
 
 ---
 
@@ -59,7 +59,7 @@
 
 <a name="how-to-install"></a>
 ## How to install
-We are not using common way how is script included to current folder structure (like grab it and put to the root of mission folder) - that's why **read carefully, use repo folder structure (or similar) and use compare tool like diffmerge!**
+We are not using common way how is script included to current folder structure (like grab it and put to the root of mission folder) - that's why **read carefully, use repo folder structure (or similar) and compare tool like diffmerge!**
 
 ---
 
