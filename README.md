@@ -114,10 +114,10 @@ For **server side** (`dayz_server`) we need to touch these files:
 <a name="changelog"></a>
 ## Changelog
 
-| Date         | Version | Description                                                         |
-| :---         | :---    | :---                                                                |
-| [2017-05-22] | v1.0    | Initial release                                                     |
-| [2017-05-27] | v1.1    | Optimized compiles: 5 files reduced to 1 main file.<br>See changes: |
+| Date         | Version | Description                                                                                       |
+| :---         | :---    | :---                                                                                              |
+| [2017-05-22] | v1.0    | Initial release                                                                                   |
+| [2017-05-27] | v1.1    | Optimized compiles: 5 files reduced to 1 main file.<br>_See changes:_ [[commit ae29c13][update1]] |
 
 ---
 
@@ -125,3 +125,4 @@ For **server side** (`dayz_server`) we need to touch these files:
 [epochdevs]: https://github.com/EpochModTeam/DayZ-Epoch "Go to source"
 [overheatthread]: https://epochmod.com/forum/topic/18624-release-paint-vehicles/ "Go to source"
 [raymixthread]: https://epochmod.com/forum/topic/19651-extras-full-list-of-paintable-vehicles-for-paint-vehicles-script/ "Go to source"
+[update1]: https://github.com/infobeny/PaintVehicles/commit/ae29c1349802095025c6d8296f97d7e594988150 "See changes"
