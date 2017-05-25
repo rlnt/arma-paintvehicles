@@ -1,5 +1,7 @@
 # Paint Vehicles
 
+**Last update: [2017-05-25], v1.1** ([see changelog](#changelog))
+
 ---
 
 [Go to Epoch forum thread][scriptthread]
@@ -25,6 +27,7 @@
 - [How to install](#how-to-install)
 - [Battleye](#battleye)
 - [infiSTAR](#infistar)
+- [Changelog](#changelog)
 
 <!-- /MarkdownTOC -->
 
@@ -45,7 +48,6 @@
 
 + **What needs to be done:**
   + #todo: update vehicle classes in `ColourVehicles` array
-  + #todo: compability test with `Virtual Garage` script (theduke release)
 
 ---
 
@@ -109,7 +111,17 @@ For **server side** (`dayz_server`) we need to touch these files:
 
 ---
 
-[scriptthread]: https://epochmod.com/forum/ "Go to source"
+<a name="changelog"></a>
+## Changelog
+
+| Date         | Version | Description                                                         |
+| :---         | :---    | :---                                                                |
+| [2017-05-22] | v1.0    | Initial release                                                     |
+| [2017-05-27] | v1.1    | Optimized compiles: 5 files reduced to 1 main file.<br>See changes: |
+
+---
+
+[scriptthread]: https://epochmod.com/forum/topic/43949-re-release-paint-vehicles-script-using-single-currency-updated-to-1061-and-upgraded/ "Go to source"
 [epochdevs]: https://github.com/EpochModTeam/DayZ-Epoch "Go to source"
 [overheatthread]: https://epochmod.com/forum/topic/18624-release-paint-vehicles/ "Go to source"
 [raymixthread]: https://epochmod.com/forum/topic/19651-extras-full-list-of-paintable-vehicles-for-paint-vehicles-script/ "Go to source"

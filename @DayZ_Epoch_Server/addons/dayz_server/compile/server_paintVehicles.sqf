@@ -1,3 +1,6 @@
+// ===========================================================================
+// @PAINT VEHICLES
+// ===========================================================================
 private ["_object","_colorArr","_textArr","_pname","_PUID","_name","_pcolor","_pcolor2","_clrinit","_clrinit2","_texture","_texture2","_position","_worldspace","_fuel","_objectID","_key"];
 
 _object = _this select 0;
