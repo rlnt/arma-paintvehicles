@@ -1,6 +1,6 @@
 # Paint Vehicles
 
-**Last update: [2017-05-25], v1.1** ([see changelog](#changelog))
+**Last update: [2017-08-19], v1.1** ([see changelog](#changelog))
 
 ---
 

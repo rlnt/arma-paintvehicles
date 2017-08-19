@@ -299,6 +299,7 @@ if ((playersNumber west + playersNumber civilian) == 0) exitWith {
             _clrinit2 = format ["#(argb,8,8,3)color(%1)",_pcolor2];
             _object setVehicleInit "this setObjectTexture [1,"+str _clrinit2+"];";
           };
+          processInitCommands;
         };
       };
     // =======================================================================
