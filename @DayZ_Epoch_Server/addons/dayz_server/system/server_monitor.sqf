@@ -220,7 +220,7 @@ if ((playersNumber west + playersNumber civilian) == 0) exitWith {
     _object setVariable ["lastUpdate",diag_ticktime];
     _object setVariable ["ObjectID", _idKey, true];
     _object setVariable ["OwnerPUID", _ownerPUID, true];
-    if (Z_SingleCurrency && {_type in DZE_MoneyStorageClasses}) then {
+    if (Z_SingleCurrency && {(_type in DZE_MoneyStorageClasses) || (_object isKindOf "AllVehicles")}) then {
       _object setVariable [Z_MoneyVariable, _storageMoney, true];
     };
 
@@ -272,7 +272,7 @@ if ((playersNumber west + playersNumber civilian) == 0) exitWith {
     // =====================================================================
     if (_object isKindOf "AllVehicles") then {
     // =====================================================================
-      private ["_pcolor","_pcolor2","_clrinit","_clrinit2"];
+      private ["_colour","_colour2","_clrinit","_clrinit2"];
     // =====================================================================
       _object setVariable ["CharacterID", _ownerID, true];
       _isAir = _object isKindOf "Air";
@@ -284,25 +284,25 @@ if ((playersNumber west + playersNumber civilian) == 0) exitWith {
         _object setVariable [_strH,_dam,true];
       } foreach _hitpoints;
       [_object,"damage"] call server_updateObject;
-    // =======================================================================
+    // =====================================================================
       if(count _worldspace >= 4) then {
         if (((typeName(_worldspace select 2)) == "STRING") and ((typeName(_worldspace select 3)) == "STRING")) then {
-          _pcolor = _worldspace select 2;
-          _pcolor2 = _worldspace select 3;
-          if (_pcolor != "0") then {
-            _object setVariable ["Colour",_pcolor,true];
-            _clrinit = format ["#(argb,8,8,3)color(%1)",_pcolor];
+          _colour = _worldspace select 2;
+          _colour2 = _worldspace select 3;
+          if (_colour != "0") then {
+            _object setVariable ["Colour",_colour,true];
+            _clrinit = format ["#(argb,8,8,3)color(%1)",_colour];
             _object setVehicleInit "this setObjectTexture [0,"+str _clrinit+"];";
           };
-          if (_pcolor2 != "0") then {
-            _object setVariable ["Colour2",_pcolor2,true];
-            _clrinit2 = format ["#(argb,8,8,3)color(%1)",_pcolor2];
+          if (_colour2 != "0") then {
+            _object setVariable ["Colour2",_colour2,true];
+            _clrinit2 = format ["#(argb,8,8,3)color(%1)",_colour2];
             _object setVehicleInit "this setObjectTexture [1,"+str _clrinit2+"];";
           };
           processInitCommands;
         };
       };
-    // =======================================================================
+    // =====================================================================
 
       _object setFuel _fuel;
       if (!_isSafeObject) then {
@@ -478,10 +478,10 @@ if (dayz_townGenerator) then {execVM "\z\addons\dayz_server\system\lit_fireplace
   _uid = getPlayerUID _player;
   _treeModel = _tree call fn_getModelName;
 
-  if (_dis < 30 && (_treeModel in dayz_trees or (_treeModel in dayz_plant)) && (_uid != "")) then {
+  if ((_dis < 30) && (_treeModel in dayz_trees) && (_uid != "")) then {
     _tree setDamage 1;
     dayz_choppedTrees set [count dayz_choppedTrees,_tree];
-    diag_log format["Server setDamage on tree or plant %1 chopped down by %2(%3)",_treeModel,_name,_uid];
+    diag_log format["Server setDamage on tree %1 chopped down by %2(%3)",_treeModel,_name,_uid];
   };
 };
 

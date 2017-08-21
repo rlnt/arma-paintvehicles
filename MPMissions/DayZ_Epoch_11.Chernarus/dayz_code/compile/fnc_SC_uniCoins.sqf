@@ -1,90 +1,197 @@
 // ===========================================================================
-// SINGLE CURRENCY (@money: universal dev function: add/remove cache/bank coins)
+// FUNCTIONS LIBRARY >> SINGLE CURRENCY >> fnc_SC_uniCoins.sqf
 // ===========================================================================
-// @credits:
-//   - DayZ Epoch developers, collaborators and contributors
+// @Function name: fnc_SC_uniCoins
+// ===========================================================================
+// @Info:
+//  - Created by @iben for DayzEpoch 1.0.6.1+
+//  - Version: 1.2, Last Update [2017-06-14]
+//  - Credits:
+//   * DayZ Epoch developers, collaborators and contributors
 //     (thank you guys for your excellent work!)
-//   - @Zupa: original SC concept creator and author of Universal Dev functions
+//   * @Zupa: original SC concept creator and author of Universal Dev functions
 //     for 1.0.5 version.
 //     (see https://epochmod.com/forum/topic/15463-devs-universal-removeadd-coins-function/)
-//   - @salival for adapting @Zupa's concept to 1.0.6+ version and great community support
+//   * @salival for adapting @Zupa's concept to 1.0.6+ version and great community support
 //     (see: https://epochmod.com/forum/topic/43331-zsc-for-epoch-106-and-overwatch-025/)
+//   * ** All great guys from Epoch comunity participating on SC and banking concept **
+//     (see: https://epochmod.com/forum/forum/56-gold-coin-based-single-currency-banking-system/)
+// @Remarks:
+//  - It's unified fnc for money proccessing. You can use 4 keywors in combination
+//    to achieve desired effect
+//    * Keywords: "add" / "remove", "cache" / "bank"
+//  - Epoch Forum thread: https://epochmod.com/forum/topic/44006-re-release-v11-fn_sc_unicoins-dev-function-for-single-currency-rewritten-and-updated-for-epoch-1061/
+// @Parameters:
+//  - '_player': (player, _killer...etc)                              | object
+//   '_amount' : (1000, 50000)                                        | number
+//   '_action' : (Keywords: 'add' / 'remove')                         | string
+//   '_target' : (Keywords: 'cache' / 'bank')                         | string
+// @Prerequisities:
+//  - none
+// @Example:
+//  - #Example01: Remove 5.000 Coins from player's wallet:
+//    * [player,5000,'remove','cache'] call IBEN_fnc_SC_uniCoins;
+//  - #Example02: Add 1.000 Coins to player's wallet:
+//    * [player,1000,'add','cache'] call IBEN_fnc_SC_uniCoins;
+//  - #Example03: Remove 15.000 Coins from player's bank account:
+//    * [player,15000,'remove','bank'] call IBEN_fnc_SC_uniCoins;
+//  - #Example03: Add 50.000 Coins to player's bank account:
+//    * [player,50000,'add','bank'] call IBEN_fnc_SC_uniCoins;
+// @Returns:
+//  - Boolean
 // ===========================================================================
-// Reworked for DayZ Epoch 1.0.6.1+ by @iben+
-// ===========================================================================
-// @parameters:
-//   [_player,_amount,_action,_target] call fnc_SC_uniCoins;
-//   '_player' : object : player, _killer...etc
-//   '_amount' : number : 1000
-//   '_action' : string : 'add'   / 'remove'
-//   '_target' : string : 'cache' / 'bank'
-// @usage:
-//   === Example 01: Remove 5.000 Coins from player's wallet:
-//   [player,5000,'remove','cache'] call fnc_SC_uniCoins;
-//   === Example 02: Add 1.000 Coins to playe's bank account
-//   [player,1000,'add','bank'] call fnc_SC_uniCoins;
+// @Parameters Legend:
+//  * _a  = _player
+//  * _b  = _amount
+//  * _c  = _action
+//  * _d  = _target
+//  * _fa = _fnc_SC_uniCoinsDebug
+//  * _fb = _fnc_playerForceSave
+//  * _fc = _fnc_previewCoins
+//  * _fd = _fnc_removeCoins
+//  * _fe = _fnc_addCoins
+//  * _g  = _gvar
+//  * _m  = _msg
+//  * _n  = _money
+//  * _p  = _wealth
+//  * _q  = _removed
+//  * _r  = _result
+//  * _s  = _added
+//  * _u  = _newWealth
+//  * _xd = _Tdebug
 // ===========================================================================
 //  @important:
 //   + DayZ Epoch 'local_eventKill.sqf' with code for testing is available:
 //     https://gist.github.com/infobeny/0fa8ff0f0a50ca7877a26e0951ac358e
 // ===========================================================================
-private ["_player","_amount","_action","_target","_gvar","_result",
-         "_fnc_previewCoins","_fnc_removeCoins","_fnc_addCoins"];
+// fnc_SC_uniCoins = {
+  // =========================================================================
+  // DEFINE PREPROCESSOR COMMANDS FOR PARSING
+  // =========================================================================
+  // @readme: Uncomment line bellow if you want to use param check and exec timer
+  // #define __DEBUG__
+  // ====================================
 
-_player = _this select 0;
-_amount = _this select 1;
-_action = _this select 2;
-_target = _this select 3;
+  #ifdef __DEBUG__
+  #define MPR "Error! Too many parameters in function"
+  #define MPN "Error! Player is not recognized"
+  #define MPS "Error! Player cannot be string"
+  #define MAS "Error! Amount is not a number"
+  #define SRC "IBEN_fnc_SC_uniCoins"
+  #endif
+  // =========================================================================
 
-_gvar = [Z_bankVariable, Z_moneyVariable] select (_target == "cache");
-_result = false;
+  // === DEBUG ===============================================================
+  // NOTE: For best results restart your client before conducting tests.
+  // This function uses diag_tickTime which loses its precision the longer
+  // the client runs from restart.
+  #ifdef __DEBUG__
+    private "_xd";
+    _xd  = diag_tickTime;
+  #endif
+  // =========================================================================
 
-_fnc_previewCoins = {
-  private ["_money"];
-  _money = 0;
-  _money = _player getVariable [_gvar, 0];
-  _money
-};
+  private ["_a","_b","_c","_d"];
+  _a = _this select 0;
+  _b = _this select 1;
+  _c = _this select 2;
+  _d = _this select 3;
 
-_fnc_removeCoins = {
-  private ["_wealth","_removed"];
-  _wealth = call _fnc_previewCoins;
-  _removed = false;
-  if (_amount > 0) then {
-    if (_wealth < _amount) then {
-      _removed = false;
+  // === DEBUG ===============================================================
+  #ifdef __DEBUG__
+    private "_fa";
+    _fa = {
+      private ["_r","_m"];
+      _m = "nil";
+      _r = false;
+      call {
+        if ((count _this) != 4) exitWith {_m = MPR;_r = false};
+        if (isNil "_a") exitWith {_m = MPN;_r = false};
+        if (typeName _a == "STRING") exitWith {_m = MPS;_r = false};
+        if (typeName _b != "SCALAR") exitWith {_m = MAS;_r = false};
+        _r = true
+      };
+
+      if !(_r) then {
+       player globalChat format ["%1",_m];
+       diag_log format ["=== [%1] %2",SRC,_m];
+       _r = false
+      };
+
+      _r
+    };
+    if !(call  _fa) exitWith {hintSilent "[IBEN_fnc_SC_uniCoins] Error!"};
+  #endif
+  // =========================================================================
+
+  private ["_g","_r"];
+  _g = [Z_bankVariable, Z_moneyVariable] select (_d == "cache");
+  _r = false;
+
+  private "_fb";
+  _fb = {
+    PVDZ_plr_Save = [_a, nil];
+    publicVariableServer "PVDZ_plr_Save";
+    dayz_lastSave = diag_tickTime;
+  };
+
+  private "_fc";
+  _fc = {
+    private ["_n"];
+    _n = 0;
+    _n = _a getVariable [_g, 0];
+    _n
+  };
+
+  private "_fd";
+  _fd = {
+    private ["_p","_q"];
+    _p = call _fc;
+    _q = false;
+    if (_b > 0) then {
+      if (_p < _b) then {
+        _q = false;
+      } else {
+        _a setVariable [_g, _p - _b, true];
+        _q = true;
+        call _fb;
+      };
     } else {
-      _player setVariable [_gvar, _wealth - _amount, true];
-      _removed = true;
-      call player_forceSave;
+      _q = true;
     };
-  } else {
-    _removed = true;
+    _q
   };
-  _removed
-};
 
-_fnc_addCoins = {
-  private ["_wealth","_added","_newWealth"];
-  _wealth = call _fnc_previewCoins;
-  _added = false;
-  _player setVariable [_gvar, _wealth + _amount, true];
-  call player_forceSave;
-  _newWealth = call _fnc_previewCoins;
-  if (_newWealth >= _wealth) then {_added = true;};
-  _added
-};
+  private "_fe";
+  _fe = {
+    private ["_p","_s","_u"];
+    _p = call _fc;
+    _s = false;
+    _a setVariable [_g, _p + _b, true];
+    call _fb;
+    _u = call _fc;
+    if (_u >= _p) then {_s = true;};
+    _s
+  };
 
-if ((!isNil "_action") && (!isNil "_target")) then {
   call {
-    if (_action == "remove") exitWith {
-      if (call _fnc_removeCoins) then {_result = true;} else {_result = false;};
+    if (_c == "remove") exitWith {
+      _r = [false,true] select (call _fd);
     };
-    if (_action == "add") exitWith {
-      if (call _fnc_addCoins) then {_result = true;} else {_result = false;};
+    if (_c == "add") exitWith {
+      _r = [false,true] select (call _fe);
     };
-    _result = false; // default
+    _r = false; // default
   };
-};
 
-_result
+  // === DEBUG ===============================================================
+  #ifdef __DEBUG__
+    [SRC,(diag_tickTime - _xd)] call IBEN_fnc_codePerformace;
+  #endif
+  // =========================================================================
+
+  _r
+
+// };
+
+// === :: FUNCTIONS LIBRARY >> SINGLE CURRENCY >> fnc_SC_uniCoins.sqf :: END

@@ -50,15 +50,17 @@ _needUpdate = _object in needUpdate_objects;
 
 // TODO ----------------------
 // ===========================================================================
-// @UPDATED: PAINT VAEHICLES
+// @UPDATED: PAINT VEHICLES
 // ===========================================================================
 _object_position = {
-  private ["_position","_worldspace","_fuel","_key","_pcolor","_pcolor2"];
+  private ["_position","_worldspace","_fuel","_key","_colour","_colour2"];
   _position = getPosATL _object;
   if (_object isKindOf "AllVehicles") then {
-    _pcolor = _object getVariable ["Colour","0"];
-    _pcolor2 = _object getVariable ["Colour2","0"];
-    _worldspace = [getDir _object,_position,_pcolor,_pcolor2] call AN_fnc_formatWorldspace;
+    _colour = _object getVariable ["Colour","0"];
+    _colour2 = _object getVariable ["Colour2","0"];
+    if (isNil "_colour") then {_colour = "0";};
+    if (isNil "_colour2") then {_colour2 = "0";};
+    _worldspace = [getDir _object,_position,_colour,_colour2] call AN_fnc_formatWorldspace;
     _fuel = fuel _object;
   } else {
      _worldspace = [getDir _object, _position] call AN_fnc_formatWorldspace;

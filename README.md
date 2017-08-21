@@ -1,6 +1,6 @@
 # Paint Vehicles
 
-**Last update: [2017-08-19], v1.1** ([see changelog](#changelog))
+**Last update: [2017-08-22], v1.2** ([see changelog](#changelog))
 
 ---
 
@@ -39,10 +39,11 @@
 + Vehicles can be painted in two different colors
 + Only vehicles which you own can be painted (vehicles with key)
 + Only vehicles in `ColourVehicles` array can be painted
-+ Script is designed to be used along with **Single currency**. Player will pay for painting vehicles.
++ Script is designed to be used along with **Single currency**. Player will pay for painting vehicles
 + **UPDATED:** Color values are saved in the worldspace field in database
 + **NEW:** Vehicles can be unpainted to default state (default textures are loaded)
 + **UPDATED:** Vehicles can be painted using GUI with visual enhancements. Use PaintVehicles `defines.hpp` for defining custom GUI color scheme
++ **UPDATED:** Script is now fully compatible with **Virtual Garage** and **Vehicle Key Changer (VKC)** script thanks to @salival (**2017-08-22**). All scripts by @salival and this one prior update date should be upgraded to get much better player experience!
 
 ---
 
@@ -118,6 +119,7 @@ For **server side** (`dayz_server`) we need to touch these files:
 | :---         | :---    | :---                                                                                              |
 | [2017-05-22] | v1.0    | Initial release                                                                                   |
 | [2017-05-27] | v1.1    | Optimized compiles: 5 files reduced to 1 main file.<br>_See changes:_ [[commit ae29c13][update1]] |
+| [2017-08-20] | v1.2    | Regular code maintenance.<br>_See changes:_ [[commit 682f99a][update2]] , [[commit xx][update3]]  |
 
 ---
 
@@ -126,3 +128,5 @@ For **server side** (`dayz_server`) we need to touch these files:
 [overheatthread]: https://epochmod.com/forum/topic/18624-release-paint-vehicles/ "Go to source"
 [raymixthread]: https://epochmod.com/forum/topic/19651-extras-full-list-of-paintable-vehicles-for-paint-vehicles-script/ "Go to source"
 [update1]: https://github.com/infobeny/PaintVehicles/commit/ae29c1349802095025c6d8296f97d7e594988150 "See changes"
+[update2]: https://github.com/infobeny/PaintVehicles/commit/682f99ac5a4432e8b47035d030dede9c5002eb13 "See changes"
+[update3]: https://github.com/infobeny/PaintVehicles/commit/682f99ac5a4432e8b47035d030dede9c5002eb13 "See changes"
