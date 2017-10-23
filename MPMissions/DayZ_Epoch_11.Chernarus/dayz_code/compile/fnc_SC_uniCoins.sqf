@@ -46,7 +46,6 @@
 //  * _c  = _action
 //  * _d  = _target
 //  * _fa = _fnc_SC_uniCoinsDebug
-//  * _fb = _fnc_playerForceSave
 //  * _fc = _fnc_previewCoins
 //  * _fd = _fnc_removeCoins
 //  * _fe = _fnc_addCoins
@@ -128,13 +127,6 @@
   _g = [Z_bankVariable, Z_moneyVariable] select (_d == "cache");
   _r = false;
 
-  private "_fb";
-  _fb = {
-    PVDZ_plr_Save = [_a, nil];
-    publicVariableServer "PVDZ_plr_Save";
-    dayz_lastSave = diag_tickTime;
-  };
-
   private "_fc";
   _fc = {
     private ["_n"];
@@ -154,7 +146,7 @@
       } else {
         _a setVariable [_g, _p - _b, true];
         _q = true;
-        call _fb;
+        call player_forceSave;
       };
     } else {
       _q = true;
@@ -168,7 +160,7 @@
     _p = call _fc;
     _s = false;
     _a setVariable [_g, _p + _b, true];
-    call _fb;
+    call player_forceSave;
     _u = call _fc;
     if (_u >= _p) then {_s = true;};
     _s
