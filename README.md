@@ -52,11 +52,11 @@
 
 ---
 
-![Paint Vehicles showcase](Showcase.png)
+![Paint Vehicles showcase](Preview/Showcase.png)
 
 ---
 
-![Paint Vehicles DB showcase](db_preview.png)
+![Paint Vehicles DB showcase](Preview/db_preview.png)
 
 ---
 
@@ -115,13 +115,13 @@ For **server side** (`dayz_server`) we need to touch these files:
 <a name="changelog"></a>
 ## Changelog
 
-| Date         | Version | Description                                                                                           |
-| :---         | :---    | :---                                                                                                  |
-| [2017-05-22] | v1.0    | Initial release                                                                                       |
-| [2017-05-27] | v1.1    | Optimized compiles: 5 files reduced to 1 main file.<br>_See changes:_ [[commit ae29c13][update1]]     |
-| [2017-08-20] | v1.2    | Regular code maintenance.<br>_See changes:_ [[commit 682f99a][update2]] , [[commit 7cd8fce][update3]] |
-| [2017-10-23] | v1.3    | Roll back to full version of player_forceSave (uniCoins fix: Issue not related to script itself)      |
-| [2017-12-04] | v1.4    | Safer manipulation with data sending to server. Basic defines fix - from sqf to hpp.                  |
+| Date         | Version | Description                                                                                                                        |
+| :---         | :---    | :---                                                                                                                               |
+| [2017-05-22] | v1.0    | Initial release                                                                                                                    |
+| [2017-05-27] | v1.1    | Optimized compiles: 5 files reduced to 1 main file.<br>_See changes:_ [[commit ae29c13][update1]]                                  |
+| [2017-08-20] | v1.2    | Regular code maintenance.<br>_See changes:_ [[commit 682f99a][update2]] , [[commit 7cd8fce][update3]]                              |
+| [2017-10-23] | v1.3    | Roll back to full version of player_forceSave (uniCoins fix: Issue not related to script itself)                                   |
+| [2017-12-04] | v1.4    | Safer manipulation with data sending to server. Basic defines fix - from sqf to hpp.<br>_See changes:_ [[commit 2735dea][update4]] |
 
 ---
 
@@ -132,3 +132,4 @@ For **server side** (`dayz_server`) we need to touch these files:
 [update1]: https://github.com/infobeny/PaintVehicles/commit/ae29c1349802095025c6d8296f97d7e594988150 "See changes"
 [update2]: https://github.com/infobeny/PaintVehicles/commit/682f99ac5a4432e8b47035d030dede9c5002eb13 "See changes"
 [update3]: https://github.com/infobeny/PaintVehicles/commit/7cd8fced0fc836f90d461508b75119395f8fa0e0 "See changes"
+[update4]: https://github.com/infobeny/PaintVehicles/commit/2735dea1120566e926aacd3a5ada7f9c880f88af "See changes"
