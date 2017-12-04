@@ -12,8 +12,8 @@ _name = getText(configFile >> "cfgVehicles" >> (typeOf _object) >> "displayName"
 
 call {
   if (count _textArr == 0) exitWith {
-    _colour = _colorArr select 0;
-    _colour2 = _colorArr select 1;
+    _colour = (toString (_colorArr select 0));
+    _colour2 = (toString (_colorArr select 1));
 
     if (isNil "_colour") then {_colour = "0";};
     if (isNil "_colour2") then {_colour2 = "0";};
@@ -44,8 +44,8 @@ call {
     // diag_log format ["=== VEHICLE PAINT DEBUG: NORMAL MODE: _colour [%1], _colour2 [%2]",_colour,_colour2];
   };
   if (count _colorArr == 0) exitWith {
-    _texture = _textArr select 0;
-    _texture2 = _textArr select 1;
+    _texture = (toString (_textArr select 0));
+    _texture2 = (toString (_textArr select 1));
 
     _object setVehicleInit "this setObjectTexture [0,"+str _texture+"];";
     _object setVehicleInit "this setObjectTexture [1,"+str _texture2+"];";

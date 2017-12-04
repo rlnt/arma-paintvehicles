@@ -1,6 +1,6 @@
 # Paint Vehicles
 
-**Last update: [2017-10-23], v1.3** ([see changelog](#changelog))
+**Last update: [2017-12-04], v1.4** ([see changelog](#changelog))
 
 ---
 
@@ -121,6 +121,7 @@ For **server side** (`dayz_server`) we need to touch these files:
 | [2017-05-27] | v1.1    | Optimized compiles: 5 files reduced to 1 main file.<br>_See changes:_ [[commit ae29c13][update1]]     |
 | [2017-08-20] | v1.2    | Regular code maintenance.<br>_See changes:_ [[commit 682f99a][update2]] , [[commit 7cd8fce][update3]] |
 | [2017-10-23] | v1.3    | Roll back to full version of player_forceSave (uniCoins fix: Issue not related to script itself)      |
+| [2017-12-04] | v1.4    | Safer manipulation with data sending to server. Basic defines fix - from sqf to hpp.                  |
 
 ---
 

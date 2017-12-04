@@ -1,7 +1,7 @@
 // ===========================================================================
 // Defines loader (all defines has to be at the top!)
 // ===========================================================================
-#include "Defines\Basic_defines.sqf" // @important: see the file - if you already have defines like that, just delete them as duplicity
+#include "Defines\Basic_defines.hpp" // @important: see the file - if you already have defines like that, just delete them as duplicity
 #include "\z\addons\dayz_code\Configs\RscDisplay\ZSCdefines.hpp"
 #include "Defines\PlayerGUI\RscPlayerUIdefines.hpp"
 #include "Defines\PaintVehicles\defines.hpp"

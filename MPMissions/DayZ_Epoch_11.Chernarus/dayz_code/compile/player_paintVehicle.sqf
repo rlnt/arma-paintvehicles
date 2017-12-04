@@ -9,7 +9,7 @@ VehicleColorPaint = {
     format ["You need %1 %2 to repaint your vehicle!", [PV_Price] call BIS_fnc_numberText, CurrencyName] call dayz_rollingMessages;
   };
   [format ["%1 %2 removed from your wallet! Let's start painting....",[PV_Price] call BIS_fnc_numberText, CurrencyName],1] call dayz_rollingMessages;
-  PVDZE_veh_Color = [VehicleToPaint,[_colour,_colour2],[],player];
+  PVDZE_veh_Color = [VehicleToPaint,[(toArray _colour),(toArray _colour2)],[],player];
   publicVariableServer "PVDZE_veh_Color";
 };
 
@@ -23,8 +23,8 @@ VehicleColorReset = {
   if ((count _textArr) == 0) exitWith {
     diag_log format ["=== VEHICLE PAINT DEBUG: No texture for [%1] to reset",_vehName];
   };
-  _texture1 = _textArr select 0;
-  _texture2 = _textArr select 1;
+  _texture1 = (toArray (_textArr select 0));
+  _texture2 = (toArray (_textArr select 1));
   PVDZE_veh_Color = [VehicleToPaint,[],[_texture1,_texture2],player];
   publicVariableServer "PVDZE_veh_Color";
 };
