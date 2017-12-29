@@ -30,8 +30,10 @@ aiKills = 1;
 diagRadio = 1;
 diagHit = 1;
 
-#include "dayz_code\gui\description.hpp"
-#include "dayz_sfx\CfgSounds.hpp"
+#include "\z\addons\dayz_code\gui\description.hpp"
 #include "\z\addons\dayz_code\Configs\CfgLoot\CfgLoot.hpp"
 #include "\z\addons\dayz_code\Configs\CfgServerTrader\CfgServerTrader.hpp"
+// ===========================================================================
+// PUT "MASTER.HPP" FROM "DAYZ_CODE\CONFIGS" FOLDER HERE:
+// ===========================================================================
 #include "dayz_code\Configs\master.hpp"

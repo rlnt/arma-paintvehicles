@@ -1,7 +1,7 @@
 // ===========================================================================
-// FUNCTIONS LIBRARY >> SINGLE CURRENCY >> fnc_SC_uniCoins.sqf
+// FUNCTIONS LIBRARY >> SINGLE CURRENCY >> IBEN_fnc_SC_uniCoins.sqf
 // ===========================================================================
-// @Function name: fnc_SC_uniCoins
+// @Function name: IBEN_fnc_SC_uniCoins
 // ===========================================================================
 // @Info:
 //  - Created by @iben for DayzEpoch 1.0.6.1+
@@ -59,34 +59,13 @@
 //  * _u  = _newWealth
 //  * _xd = _Tdebug
 // ===========================================================================
-//  @important:
-//   + DayZ Epoch 'local_eventKill.sqf' with code for testing is available:
-//     https://gist.github.com/infobeny/0fa8ff0f0a50ca7877a26e0951ac358e
-// ===========================================================================
-// fnc_SC_uniCoins = {
-  // =========================================================================
-  // DEFINE PREPROCESSOR COMMANDS FOR PARSING
-  // =========================================================================
-  // @readme: Uncomment line bellow if you want to use param check and exec timer
-  // #define __DEBUG__
-  // ====================================
-
+// IBEN_fnc_SC_uniCoins = {
   #ifdef __DEBUG__
   #define MPR "Error! Too many parameters in function"
   #define MPN "Error! Player is not recognized"
   #define MPS "Error! Player cannot be string"
   #define MAS "Error! Amount is not a number"
   #define SRC "IBEN_fnc_SC_uniCoins"
-  #endif
-  // =========================================================================
-
-  // === DEBUG ===============================================================
-  // NOTE: For best results restart your client before conducting tests.
-  // This function uses diag_tickTime which loses its precision the longer
-  // the client runs from restart.
-  #ifdef __DEBUG__
-    private "_xd";
-    _xd  = diag_tickTime;
   #endif
   // =========================================================================
 
@@ -176,14 +155,8 @@
     _r = false; // default
   };
 
-  // === DEBUG ===============================================================
-  #ifdef __DEBUG__
-    [SRC,(diag_tickTime - _xd)] call IBEN_fnc_codePerformace;
-  #endif
-  // =========================================================================
-
   _r
 
 // };
 
-// === :: FUNCTIONS LIBRARY >> SINGLE CURRENCY >> fnc_SC_uniCoins.sqf :: END
+// === :: FUNCTIONS LIBRARY >> SINGLE CURRENCY >> IBEN_fnc_SC_uniCoins.sqf :: END

@@ -2,14 +2,9 @@
 // YOUR CUSTOM VARIABLES
 // ===========================================================================
 
-// ...
-
-// dayz_resetSelfActions = {};
-// call dayz_resetSelfActions;
-
-// ===========================================================================
-// @UPDATED: PAINT VAEHICLES (Classes needs to be verify!)
-// ===========================================================================
+// ---------------------------------------------------------------------------
+// PAINT VEHICLES (Adjust classes to your liking)
+// ---------------------------------------------------------------------------
 // === Paint vehicles price gvar
 PV_Price = 2000;
 
@@ -497,10 +492,3 @@ ColourVehicles = [
   "JetSkiYanahui_Blue",
   "JetSkiYanahui_Green" // @SHIP START
   ];
-
-// ===========================================================================
-// PREVENT VEHICLE BLOWING: ADD THEM TO DZE_safeVehicle ARRAY
-// ===========================================================================
-// if (isServer) then {
-//   DZE_safeVehicle = [];
-// };

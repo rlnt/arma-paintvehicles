@@ -10,10 +10,10 @@ private ["_canPickLight","_text","_unlock","_lock","_totalKeys","_temp_keys","_t
 "_combi","_findNearestGen","_humanity_logic","_low_high","_cancel","_buy","_buyV","_humanity","_traderMenu","_warn","_typeOfCursorTarget",
 "_isVehicle","_isBicycle","_isDestructable","_isGenerator","_ownerID","_isVehicletype","_hasBarrel","_hasFuel20","_hasFuel5","_hasEmptyFuelCan",
 "_itemsPlayer","_hasToolbox","_hasbottleitem","_isAlive","_isPlant","_istypeTent","_upgradeItems","_isDisallowRefuel","_isDog",
-"_isModular","_isModularDoor","_isHouse","_isGate","_isFence","_isLockableGate","_isUnlocked","_isOpen","_isClosed","_ownerArray","_ownerBuildLock",
+"_isModular","_isModularDoor","_isHouse","_isGateOperational","_isGateLockable","_isFence","_isLockableGate","_isUnlocked","_isOpen","_isClosed","_ownerArray","_ownerBuildLock",
 "_ownerPID","_speed","_dog","_vehicle","_inVehicle","_cursorTarget","_primaryWeapon","_currentWeapon","_magazinesPlayer","_onLadder","_canDo",
 "_nearLight","_vehicleOwnerID","_hasHotwireKit","_isPZombie","_dogHandle","_allowedDistance","_id","_upgrade","_weaponsPlayer","_hasCrowbar",
-"_allowed","_hasAccess","_uid","_myCharID"];
+"_allowed","_hasAccess","_uid","_myCharID","_isLocked"];
 
 _vehicle = vehicle player;
 _inVehicle = (_vehicle != player);
@@ -228,6 +228,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
   _isMan = _cursorTarget isKindOf "Man"; //includes animals and zombies
   _isDestructable = _cursorTarget isKindOf "BuiltItems";
   _isGenerator = _typeOfCursorTarget == "Generator_DZ";
+  _isLocked = locked _cursorTarget;
   //_isVehicletype = _typeOfCursorTarget in ["ATV_US_EP1","ATV_CZ_EP1"]; //Checked in player_flipvehicle
   _isFuel = false;
   _hasBarrel = "ItemFuelBarrel" in _magazinesPlayer;
@@ -297,7 +298,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
     //Allow player to fill vehicle 210L
     if (_hasBarrel && {!_isMan} && {_isVehicle} && {fuel _cursorTarget < 1} && {!_isDisallowRefuel}) then {
       if (s_player_fillfuel210 < 0) then {
-        s_player_fillfuel210 = player addAction [format[localize "str_actions_medical_10",_text,"210"], "\z\addons\dayz_code\actions\refuel.sqf",["ItemFuelBarrel",_cursorTarget], 0, true, true, "", "'ItemFuelBarrel' in magazines player"];
+        s_player_fillfuel210 = player addAction [format[localize "str_actions_medical_10",_text,"210"], "\z\addons\dayz_code\actions\refuel.sqf",["ItemFuelBarrel",_cursorTarget], 0, true, true];
       };
     } else {
       player removeAction s_player_fillfuel210;
@@ -307,7 +308,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
     //Allow player to fill vehicle 20L
     if (_hasFuel20 && {!_isMan} && {_isVehicle} && {fuel _cursorTarget < 1} && {!_isDisallowRefuel}) then {
       if (s_player_fillfuel20 < 0) then {
-        s_player_fillfuel20 = player addAction [format[localize "str_actions_medical_10",_text,"20"], "\z\addons\dayz_code\actions\refuel.sqf",["ItemJerrycan",_cursorTarget], 0, true, true, "", "'ItemJerrycan' in magazines player"];
+        s_player_fillfuel20 = player addAction [format[localize "str_actions_medical_10",_text,"20"], "\z\addons\dayz_code\actions\refuel.sqf",["ItemJerrycan",_cursorTarget], 0, true, true];
       };
     } else {
       player removeAction s_player_fillfuel20;
@@ -317,7 +318,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
     //Allow player to fill vehicle 5L
     if (_hasFuel5 && {!_isMan} && {_isVehicle} && {fuel _cursorTarget < 1} && {!_isDisallowRefuel}) then {
       if (s_player_fillfuel5 < 0) then {
-        s_player_fillfuel5 = player addAction [format[localize "str_actions_medical_10",_text,"5"], "\z\addons\dayz_code\actions\refuel.sqf",["ItemFuelcan",_cursorTarget], 0, true, true, "", "'ItemFuelcan' in magazines player"];
+        s_player_fillfuel5 = player addAction [format[localize "str_actions_medical_10",_text,"5"], "\z\addons\dayz_code\actions\refuel.sqf",["ItemFuelcan",_cursorTarget], 0, true, true];
       };
     } else {
       player removeAction s_player_fillfuel5;
@@ -377,17 +378,6 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
     };
   };
 
-//  Not needed.
-/*
-  if(_cursorTarget == dayz_hasFire) then {
-    if ((s_player_fireout < 0) && !(_cursorTarget call isInflamed) && (player distance _cursorTarget < 3)) then {
-      s_player_fireout = player addAction [localize "str_actions_self_06", "\z\addons\dayz_code\actions\fire_pack.sqf",_cursorTarget, 0, false, true];
-    };
-  } else {
-    player removeAction s_player_fireout;
-    s_player_fireout = -1;
-  };
-*/
   if (_isAlive) then {
     _restrict = _typeOfCursorTarget in DZE_restrictRemoval;
 
@@ -505,7 +495,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
       _menu = dayz_myCursorTarget addAction [localize "str_actions_repairveh", "\z\addons\dayz_code\actions\repair_vehicle.sqf",_cursorTarget, 0, true, false];
       if (!_isBicycle) then { //Bike wheels should not give full size tires. Also model does not update to show removed wheels.
         if (!DZE_salvageLocked) then {
-          if (!locked _cursorTarget) then {
+          if (!_isLocked) then {
             _menu1 = dayz_myCursorTarget addAction [localize "str_actions_salvageveh", "\z\addons\dayz_code\actions\salvage_vehicle.sqf",_cursorTarget, 0, true, false];
             s_player_repairActions set [count s_player_repairActions,_menu1];
           };
@@ -525,12 +515,15 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
   /* //Vanilla base building currently not used in Epoch
   // House locking and unlocking
   _isHouse = _typeOfCursorTarget in ["SurvivorWorkshopAStage5", "SurvivorWorkshopBStage5", "SurvivorWorkshopCStage5"];
-  _isGate = _typeOfCursorTarget in ["WoodenGate_1","WoodenGate_2","WoodenGate_3","WoodenGate_4","MetalGate_1","MetalGate_2","MetalGate_3","MetalGate_4"];
+  _isGateOperational = _typeOfCursorTarget in ["WoodenGate_1","WoodenGate_2","WoodenGate_3","WoodenGate_4","MetalGate_1","MetalGate_2","MetalGate_3","MetalGate_4"];
+  _isGateLockable = _typeOfCursorTarget in ["WoodenGate_1","WoodenGate_2","WoodenGate_3","MetalGate_1","MetalGate_2","MetalGate_3"];
   _isFence = _typeOfCursorTarget in ["WoodenFence_1","WoodenFence_2","WoodenFence_3","WoodenFence_4","WoodenFence_5","WoodenFence_6","MetalFence_1","MetalFence_2","MetalFence_3","MetalFence_4","MetalFence_5","MetalFence_6","MetalFence_7"];
 
   //Only the owners can lock the gates
   _isLockableGate = _typeOfCursorTarget in ["WoodenGate_2","WoodenGate_3","WoodenGate_4","MetalGate_2","MetalGate_3","MetalGate_4"];
   _isUnlocked = _cursorTarget getVariable ["isOpen","0"] == "1";
+
+  _isActionInProgress = _cursorTarget getVariable ["actionInProgress",false];
 
   //Allow the gates to be opened when not locked by anyone
   _isOpen = ((_cursorTarget animationPhase "DoorL") == 1) || ((_cursorTarget animationPhase "DoorR") == 1);
@@ -542,7 +535,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
   _ownerPID = (_ownerArray select 0);
 
   // open Gate
-  if (_isGate && _isClosed && _isUnlocked) then {
+  if (_isGateOperational && _isClosed && _isUnlocked) then {
     if (s_player_openGate < 0) then {
       s_player_openGate = player addAction [localize "STR_DN_OUT_O_GATE", "\z\addons\dayz_code\actions\player_operate.sqf",[_cursorTarget,"Open"], 1, true, true];
     };
@@ -551,7 +544,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
     s_player_openGate = -1;
   };
   // Close Gate
-  if (_isGate && _isOpen && _isUnlocked) then {
+  if (_isGateOperational && _isOpen && _isUnlocked) then {
     if (s_player_CloseGate < 0) then {
       s_player_CloseGate = player addAction [localize "STR_DN_OUT_C_GATE", "\z\addons\dayz_code\actions\player_operate.sqf",[_cursorTarget,"Close"], 1, true, true];
     };
@@ -569,7 +562,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
     s_player_setCode = -1;
   };
   //Lock Build point
-  if ((_isFence or _isGate) && (_ownerPID == _uid) && !_ownerBuildLock) then {
+  if ((_isFence or _isGateLockable) && (_ownerPID == _uid) && !_ownerBuildLock) then {
     if (s_player_BuildLock < 0) then {
       s_player_BuildLock = player addAction [localize "STR_BLD_ACTIONS_LOCKBUILD", "\z\addons\dayz_code\actions\player_operate.sqf",[_cursorTarget,"BuildLock"], 1, true, true];
     };
@@ -578,7 +571,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
     s_player_BuildLock = -1;
   };
   //UnLock Build point
-  if ((_isFence or _isGate) && (_ownerPID == _uid) && _ownerBuildLock) then {
+  if ((_isFence or _isGateLockable) && (_ownerPID == _uid) && _ownerBuildLock) then {
     if (s_player_BuildUnLock < 0) then {
       s_player_BuildUnLock = player addAction [localize "STR_BLD_ACTIONS_UNLOCKBUILD", "\z\addons\dayz_code\actions\player_operate.sqf",[_cursorTarget,"BuildUnLock"], 1, true, true];
     };
@@ -605,7 +598,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
     s_player_lockhouse = -1;
   };
   //Break In
-  if ((_isHouse or _isLockableGate) && (_ownerPID != _uid) && !_isUnlocked) then {
+  if ((_isHouse or _isLockableGate) && (_ownerPID != _uid) && !_isUnlocked && !_isActionInProgress) then {
     if (s_player_breakinhouse < 0) then {
       s_player_breakinhouse = player addAction [localize "STR_BLD_ACTIONS_BREAKIN", "\z\addons\dayz_code\actions\player_breakin.sqf",_cursorTarget, 1, true, true];
     };
@@ -618,7 +611,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
     _allowed = ((_hasAccess select 0) or (_hasAccess select 2) or (_hasAccess select 3) or (_hasAccess select 4));
     if (DZE_permanentPlot) then {
       if (s_player_plotManagement < 0 && _allowed) then {
-        s_player_plotManagement = player addAction [format["<t color='#0059FF'>%1</t>",localize "STR_EPOCH_ACTIONS_MANAGEPLOT"], "\z\addons\dayz_code\actions\plotManagement\initPlotManagement.sqf", [], 5, false];
+        s_player_plotManagement = player addAction [format["<t color='#b3e6ff'>%1</t>",localize "STR_EPOCH_ACTIONS_MANAGEPLOT"], "\z\addons\dayz_code\actions\plotManagement\initPlotManagement.sqf", [], 5, false];
       };
     } else {
       if (s_player_maintain_area < 0) then {
@@ -673,7 +666,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
     };
 
     _attached = _cursorTarget getVariable["attached",false];
-    if (_found && {_allowTow} && {!locked _cursorTarget} && {!_isPZombie} && {typeName _attached != "OBJECT"}) then {
+    if (_found && {_allowTow} && {!_isLocked} && {!_isPZombie} && {typeName _attached != "OBJECT"}) then {
       if (s_player_heli_lift < 0) then {
         s_player_heli_lift = player addAction [localize "STR_EPOCH_ACTIONS_ATTACHTOHELI", "\z\addons\dayz_code\actions\player_heliLift.sqf",[_liftHeli,_cursorTarget], -10, false, true];
       };
@@ -691,7 +684,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
       _temp_keys_names = _totalKeys select 1;
       _hasKey = _characterID in _temp_keys;
       _oldOwner = (_characterID == _uid);
-      if (locked _cursorTarget) then {
+      if (_isLocked) then {
         if (_hasKey || _oldOwner) then {
           _unlock = player addAction [format[localize "STR_EPOCH_ACTIONS_UNLOCK",_text], "\z\addons\dayz_code\actions\unlock_veh.sqf",[_cursorTarget,(_temp_keys_names select (_temp_keys find _characterID))], 2, true, true];
           s_player_lockunlock set [count s_player_lockunlock,_unlock];
@@ -709,15 +702,15 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
         if (_hasKey || _oldOwner) then {
           _lock = player addAction [format[localize "STR_EPOCH_ACTIONS_LOCK",_text], "\z\addons\dayz_code\actions\lock_veh.sqf",_cursorTarget, 1, true, true];
           s_player_lockunlock set [count s_player_lockunlock,_lock];
-          // ===========================================================================
-          // @UPDATED: PAINT VAEHICLES
-          // ===========================================================================
+          // -----------------------------------------------------------------
+          // PAINT VEHICLES
+          // -----------------------------------------------------------------
           if (_typeOfCursorTarget in ColourVehicles) then {
             private "_paintVehicle";
-            _paintVehicle = player addAction ["Paint vehicle", "dayz_code\actions\player_paint_init.sqf",_cursorTarget, 2, false, true];
-            s_player_lockunlock set [count s_player_lockunlock,_paintVehicle];
+            _paintVehicle = player addAction [format [IBEN_AMTHEMEM," Paint vehicle"], "DAYZ_CODE\actions\paint_vehicle\player_paint_init.sqf",_cursorTarget, 995, false, true];
+            s_player_lockunlock set [count s_player_lockunlock,_paintVehicle]; // @!
           };
-          // ===========================================================================
+          // -----------------------------------------------------------------
           s_player_lockUnlock_crtl = 1;
         };
       };
@@ -742,7 +735,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
     // Check player access
     _hasAccess = [player, _cursorTarget] call FNC_check_access;
     if (s_player_manageDoor < 0 && ((_hasAccess select 0) or (_hasAccess select 2) or (_hasAccess select 3) or (_hasAccess select 4) or (_hasAccess select 5) or (_hasAccess select 6))) then {
-      s_player_manageDoor = player addAction [format["<t color='#0059FF'>%1</t>", localize "STR_EPOCH_ACTIONS_MANAGEDOOR"], "\z\addons\dayz_code\actions\doorManagement\initDoorManagement.sqf", _cursorTarget, 5, false];
+      s_player_manageDoor = player addAction [format["<t color='#b3e6ff'>%1</t>", localize "STR_EPOCH_ACTIONS_MANAGEDOOR"], "\z\addons\dayz_code\actions\doorManagement\initDoorManagement.sqf", _cursorTarget, 5, false];
     };
   } else {
     player removeAction s_player_manageDoor;
@@ -856,7 +849,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
   };
 
   // downgrade system
-  if ((DZE_Lock_Door == _characterID)  && {!keypadCancel} && {_isDestructable || _cursorTarget isKindOf "Land_DZE_WoodDoorLocked_Base" || _cursorTarget isKindOf "CinderWallDoorLocked_DZ_Base"}) then {
+  if (DZE_Lock_Door == _characterID && {!keypadCancel} && {_cursorTarget isKindOf "Land_DZE_WoodDoorLocked_Base" || _cursorTarget isKindOf "CinderWallDoorLocked_DZ_Base"}) then {
     if ((s_player_lastTarget select 1) != _cursorTarget) then {
       if (s_player_downgrade_build > 0) then {
         player removeAction s_player_downgrade_build;
@@ -1049,8 +1042,6 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
   s_player_cook = -1;
   player removeAction s_player_boil;
   s_player_boil = -1;
-  player removeAction s_player_fireout;
-  s_player_fireout = -1;
   player removeAction s_player_packtent;
   s_player_packtent = -1;
   player removeAction s_player_packtentinfected;

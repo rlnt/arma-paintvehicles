@@ -1,6 +1,6 @@
 # Paint Vehicles
 
-**Last update: [2017-12-04], v1.4** ([see changelog](#changelog))
+**Last update: [2017-12-29], v1.5** ([see changelog](#changelog))
 
 ---
 
@@ -44,6 +44,7 @@
 + **NEW:** Vehicles can be unpainted to default state (default textures are loaded)
 + **UPDATED:** Vehicles can be painted using GUI with visual enhancements. Use PaintVehicles `defines.hpp` for defining custom GUI color scheme
 + **UPDATED:** Script is now fully compatible with **Virtual Garage** and **Vehicle Key Changer (VKC)** script thanks to @salival (**2017-08-22**). All scripts by @salival and this one prior update date should be upgraded to get much better player experience!
++ **UPDATED: for Epoch 1.0.6.2**
 
 ---
 
@@ -71,22 +72,22 @@ For **client side** we need these folders in the root of your `MPMissions\Dayz_E
 + **actions:** we will store file with scroll action menu command `Paint vehicle` here
 + **compile:** we will store core script client files here
 + **Configs:** we will store defines && dialog config files for script GUI here
-+ **gui:** we will store your "Money" or "Coins" picture here
-+ **init:** we will load all compiles, variables and public eventhandlers from here
++ **gui:** we will store your "Money" or "Coins" picture here (Change path inside: `dayz_code\compile\player_paintVehicle.sqf`)
++ **init:** we will load all compiles and variables from here
 
 ... and finaly files:
 
 + **description.ext:** we will load your defines and dialogs from here via `master.hpp` 
-+ **init.sqf:** we will load your custom compiles, variables and public EH from here
++ **init.sqf:** we will load your custom compiles and variables from here
 
 ---
 
 For **server side** (`dayz_server`) we need to touch these files:
 
-+ **compiles\server_paintVehicles.sqf** (needs to be created)
++ **compiles\paintVehicles** (copy whole folder to compiles)
 + **compiles\server_updateObject.sqf**
 + **system\server_monitor.sqf**
-+ **init\server_functions.sqf**
++ **init\server_functions.sqf** (compile init.sqf)
 
 ---
 
@@ -122,6 +123,7 @@ For **server side** (`dayz_server`) we need to touch these files:
 | [2017-08-20] | v1.2    | Regular code maintenance.<br>_See changes:_ [[commit 682f99a][update2]] , [[commit 7cd8fce][update3]]                              |
 | [2017-10-23] | v1.3    | Roll back to full version of player_forceSave (uniCoins fix: Issue not related to script itself)                                   |
 | [2017-12-04] | v1.4    | Safer manipulation with data sending to server. Basic defines fix - from sqf to hpp.<br>_See changes:_ [[commit 2735dea][update4]] |
+| [2017-29-04] | v1.5    | Update for Epoch 1.0.6.2                                                                                                           |
 
 ---
 
