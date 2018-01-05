@@ -707,7 +707,7 @@ if (!isNull _cursorTarget && !_inVehicle && !_isPZombie && (player distance _cur
           // -----------------------------------------------------------------
           if (_typeOfCursorTarget in ColourVehicles) then {
             private "_paintVehicle";
-            _paintVehicle = player addAction [format [IBEN_AMTHEMEM," Paint vehicle"], "DAYZ_CODE\actions\paint_vehicle\player_paint_init.sqf",_cursorTarget, 995, false, true];
+            _paintVehicle = player addAction ["Paint vehicle", "dayz_code\actions\paint_vehicle\player_paint_init.sqf",_cursorTarget, 2, false, true];
             s_player_lockunlock set [count s_player_lockunlock,_paintVehicle]; // @!
           };
           // -----------------------------------------------------------------
