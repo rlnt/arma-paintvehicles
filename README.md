@@ -4,6 +4,10 @@
 
 ---
 
+**This addon is not my work. [iben][originalauthor] AKA @infobeny gave me permission to keep it available for the DayZ Epoch Community!**
+
+---
+
 [Go to Epoch forum thread][scriptthread]
 
 ---
@@ -136,3 +140,4 @@ For **server side** (`dayz_server`) we need to touch these files:
 [update2]: https://github.com/infobeny/PaintVehicles/commit/682f99ac5a4432e8b47035d030dede9c5002eb13 "See changes"
 [update3]: https://github.com/infobeny/PaintVehicles/commit/7cd8fced0fc836f90d461508b75119395f8fa0e0 "See changes"
 [update4]: https://github.com/infobeny/PaintVehicles/commit/2735dea1120566e926aacd3a5ada7f9c880f88af "See changes"
+[originalauthor]: https://github.com/infobeny/ "Go to source"
